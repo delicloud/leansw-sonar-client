@@ -13,16 +13,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.google.common.collect.FluentIterable.from;
-
-@Service
 public class SonarQubeClientImpl implements SonarQubeClient {
 
 
@@ -46,12 +42,9 @@ public class SonarQubeClientImpl implements SonarQubeClient {
     private RestTemplate restTemplate;
 
 
-
-
     private CodeMetricsConverter codeMetricsConverter = new CodeMetricsConverter();
 
-    @Autowired
-    public SonarQubeClientImpl(@Value("${sonar.host}") String host) {
+    public SonarQubeClientImpl(String host) {
         this.host = host;
         this.restTemplate = new RestTemplate();
     }
