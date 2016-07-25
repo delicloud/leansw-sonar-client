@@ -3,7 +3,7 @@
 
     <groupId>com.thoughtworks.lean</groupId>
     <artifactId>leansw-sonar-client</artifactId>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>leansw-sonar-client</name>
@@ -25,8 +25,7 @@
         <url>https://github.com/tw-leansw/leansw-sonar-client</url>
         <connection>scm:git:git://github.com:tw-leansw/leansw-sonar-client.git</connection>
         <developerConnection>scm:git:git@github.com:tw-leansw/leansw-sonar-client.git</developerConnection>
-      <tag>v1.0</tag>
-  </scm>
+    </scm>
 
     <dependencies>
 
