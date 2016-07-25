@@ -1,0 +1,80 @@
+[{
+    "id": 205,
+    "uuid": "AVSAk-MdfM89LlZXj17r",
+    "key": "cd-metrics-ui",
+    "name": "cd-metrics-ui",
+    "scope": "PRJ",
+    "qualifier": "TRK",
+    "date": "2016-07-14T08:14:01+0000",
+    "creationDate": "2016-05-05T11:00:56+0000",
+    "lname": "cd-metrics-ui",
+    "version": "1.0-SNAPSHOT",
+    "msr": [
+      {
+        "key": "ncloc",
+        "val": 3816,
+        "frmt_val": "3,816"
+      },
+      {
+        "key": "files",
+        "val": 212,
+        "frmt_val": "212"
+      },
+      {
+        "key": "functions",
+        "val": 283,
+        "frmt_val": "283"
+      },
+      {
+        "key": "violations",
+        "val": 120,
+        "frmt_val": "120"
+      },
+      {
+        "key": "blocker_violations",
+        "val": 0,
+        "frmt_val": "0"
+      },
+      {
+        "key": "critical_violations",
+        "val": 55,
+        "frmt_val": "55"
+      },
+      {
+        "key": "major_violations",
+        "val": 33,
+        "frmt_val": "33"
+      },
+      {
+        "key": "minor_violations",
+        "val": 30,
+        "frmt_val": "30"
+      },
+      {
+        "key": "info_violations",
+        "val": 2,
+        "frmt_val": "2"
+      },
+      {
+        "key": "sqale_index",
+        "val": 373,
+        "frmt_val": "6h 13min"
+      },
+      {
+        "key": "lean_testpyramid_unittests",
+        "val": 0,
+        "frmt_val": "0"
+      },
+      {
+        "key": "lean_testpyramid_integrationtests",
+        "val": 0,
+        "frmt_val": "0"
+      },
+      {
+        "key": "lean_testpyramid_functionaltests",
+        "val": 0,
+        "frmt_val": "0"
+      }
+    ]
+  }
+]
