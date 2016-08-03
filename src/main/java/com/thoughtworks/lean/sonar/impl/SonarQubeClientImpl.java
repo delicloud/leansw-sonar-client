@@ -68,14 +68,6 @@ public class SonarQubeClientImpl implements SonarQubeClient {
         return Lists.newArrayList(restTemplate.getForObject(url, SonarQubeProjectResponse[].class));
     }
 
-
-    @HystrixCommand(
-            fallbackMethod = "defaultTestReport",
-            commandProperties = {
-                    @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000")
-            }
-    )
-
     @Override
     public TestReportDto getTestReport(String projectName) {
         final String url = String.format(LATEST_TESTREPORT_REQUEST_URL, host, projectName);
