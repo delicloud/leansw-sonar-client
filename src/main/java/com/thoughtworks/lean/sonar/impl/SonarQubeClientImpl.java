@@ -54,7 +54,6 @@ public class SonarQubeClientImpl implements SonarQubeClient {
                 .collect(Collectors.toList());
     }
 
-
     @Override
     public CodeMetric getProjectMetrics(String projectName) {
         final String url = String.format(METRICS_REQUEST_URL, host, projectName, Joiner.on(",").join(METRICS_KEYS));

@@ -9,6 +9,7 @@ import com.thoughtworks.lean.sonar.domain.TestReportDto;
 import com.thoughtworks.lean.sonar.impl.SonarQubeClientImpl;
 import org.hamcrest.Matcher;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -85,18 +86,21 @@ public class SonarQubeClientImplTest {
     assertThat(projects.size(), is(greaterThan(1)));
   }
 
+  @Ignore
   @Test
   public void should_get_project_test_report() {
     final TestReportDto report = sonarQubeClient.getTestReport("cucumber-sample-for-test-pyramid");
     assertNotNull(report);
   }
 
+  @Ignore
   @Test
   public void should_get_project_test_report_by_build() {
     final TestReportDto report = sonarQubeClient.getTestReportByBuild("junit-sample-for-test-pyramid", "11");
     assertNotNull(report);
   }
 
+  @Ignore
   @Test
   public void should_get_team_test_reports() {
 
