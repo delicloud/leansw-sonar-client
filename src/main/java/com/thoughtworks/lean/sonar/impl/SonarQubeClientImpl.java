@@ -15,6 +15,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 public class SonarQubeClientImpl implements SonarQubeClient {
@@ -26,6 +27,7 @@ public class SonarQubeClientImpl implements SonarQubeClient {
     public static final String RESOURCES_REQUEST_URL = "%s/api/resources";
     public static final String LATEST_TESTREPORT_REQUEST_URL = "%s/api/lean/testreport/latest?project=%s";
     public static final String TESTREPORT_REQUEST_URL = "%s/api/lean/testreport?project=%s&build=%s";
+    public static final String TESTREPORTS_REQUEST_URL = "%s/api/lean/testreports?projects=%s";
 
     private static final String[] METRICS_KEYS =
             new String[]{"ncloc", "files", "functions", "sqale_index", "violations",
@@ -49,9 +51,10 @@ public class SonarQubeClientImpl implements SonarQubeClient {
 
     @Override
     public List<TestReportDto> getTestReports(List<String> projectNames) {
-        return projectNames.stream()
-                .map(this::getTestReportDto).filter(testReportDto -> testReportDto != null)
-                .collect(Collectors.toList());
+        StringJoiner sj = new StringJoiner(",");
+        projectNames.forEach(sj::add);
+        final String url = String.format(TESTREPORTS_REQUEST_URL, host, sj.toString());
+        return Lists.newArrayList(restTemplate.getForObject(url, TestReportDto[].class));
     }
 
     @Override

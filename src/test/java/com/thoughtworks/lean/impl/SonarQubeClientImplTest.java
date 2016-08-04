@@ -2,6 +2,7 @@ package com.thoughtworks.lean.impl;
 
 
 
+import com.google.common.collect.Lists;
 import com.thoughtworks.lean.sonar.SonarQubeClient;
 import com.thoughtworks.lean.sonar.domain.CodeMetric;
 import com.thoughtworks.lean.sonar.domain.SonarQubeProjectResponse;
@@ -28,6 +29,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
@@ -107,6 +109,12 @@ public class SonarQubeClientImplTest {
     final List<TestReportDto> reportDtos = sonarQubeClient.getTestReports(Arrays.asList("cucumber-sample-for-test-pyramid", "123456"));
     assertNotNull(reportDtos);
     assertFalse(reportDtos.stream().allMatch(testReportDto -> testReportDto == null));
+  }
+
+  @Test
+  public void should_get_projects_test_reports() {
+    final List<TestReportDto> reportDtos = sonarQubeClient.getTestReports(Lists.newArrayList("identity-server","cd-cdmtrics"));
+    assertEquals(2,reportDtos.size());
   }
 
 }
