@@ -1,7 +1,5 @@
 package com.thoughtworks.lean.impl;
 
-
-
 import com.google.common.collect.Lists;
 import com.thoughtworks.lean.sonar.SonarQubeClient;
 import com.thoughtworks.lean.sonar.domain.CodeMetric;
@@ -42,8 +40,6 @@ public class SonarQubeClientImplTest {
 
   public static final String SONAR_HOST = "http://120.27.104.224:9000";
   private SonarQubeClient sonarQubeClient;
-
-
 
   @Before
   public void setUp() throws Exception {
@@ -111,6 +107,7 @@ public class SonarQubeClientImplTest {
     assertFalse(reportDtos.stream().allMatch(testReportDto -> testReportDto == null));
   }
 
+  @Ignore
   @Test
   public void should_get_projects_test_reports() {
     final List<TestReportDto> reportDtos = sonarQubeClient.getTestReports(Lists.newArrayList("identity-server","cd-cdmtrics"));
