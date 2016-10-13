@@ -6,7 +6,6 @@ import com.thoughtworks.lean.sonar.domain.CodeMetric;
 import com.thoughtworks.lean.sonar.domain.SonarQubeProjectResponse;
 import com.thoughtworks.lean.sonar.domain.TestReportDto;
 import com.thoughtworks.lean.sonar.impl.SonarQubeClientImpl;
-import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -38,85 +37,82 @@ import static org.springframework.util.ReflectionUtils.findField;
 @RunWith(MockitoJUnitRunner.class)
 public class SonarQubeClientImplTest {
 
-  public static final String SONAR_HOST = "http://sonar.dev.twleansw.com:9000";
-  private SonarQubeClient sonarQubeClient;
+    public static final String SONAR_HOST = "http://sonar.dev.twleansw.com:9000";
+    private SonarQubeClient sonarQubeClient;
 
-  @Before
-  public void setUp() throws Exception {
-    sonarQubeClient = new SonarQubeClientImpl(SONAR_HOST);
-    RestTemplate restTemplate = getField("restTemplate");
-    String isMockServer = System.getProperty("mock.server", "false");
-    if (isMockServer.equals("true") ) {
-      MockRestServiceServer mockServer = MockRestServiceServer.createServer(restTemplate);
-      //Sample
-      mockServer.expect(requestTo("/hotels/42")).andExpect(method(HttpMethod.GET))
-        .andRespond(withSuccess("{ \"id\" : \"42\", \"name\" : \"Holiday Inn\"}", MediaType.APPLICATION_JSON));
+    @Before
+    public void setUp() throws Exception {
+        sonarQubeClient = new SonarQubeClientImpl(SONAR_HOST);
+        RestTemplate restTemplate = getField("restTemplate");
+        String isMockServer = System.getProperty("mock.server", "false");
+        if (isMockServer.equals("true")) {
+            MockRestServiceServer mockServer = MockRestServiceServer.createServer(restTemplate);
+            //Sample
+            mockServer.expect(requestTo("/hotels/42")).andExpect(method(HttpMethod.GET))
+                    .andRespond(withSuccess("{ \"id\" : \"42\", \"name\" : \"Holiday Inn\"}", MediaType.APPLICATION_JSON));
+        }
+
     }
 
-  }
+    private void setField(String fieldName, Object o) {
+        Field field = findField(SonarQubeClient.class, fieldName);
+        field.setAccessible(true);
+        ReflectionUtils.setField(field, sonarQubeClient, o);
+    }
 
-  private void setField(String fieldName, Object o) {
-    Field field = findField(SonarQubeClient.class, fieldName);
-    field.setAccessible(true);
-    ReflectionUtils.setField(field, sonarQubeClient, o);
-  }
+    private <T> T getField(String fieldName) {
+        Field field = findField(SonarQubeClientImpl.class, fieldName);
+        field.setAccessible(true);
+        return (T) ReflectionUtils.getField(field, sonarQubeClient);
+    }
 
-  private <T> T getField(String fieldName) {
-    Field field = findField(SonarQubeClientImpl.class, fieldName);
-    field.setAccessible(true);
-    return (T) ReflectionUtils.getField(field, sonarQubeClient);
-  }
-
-  @Test
-  @Ignore
-  public void should_GetProjectMetrics() throws Exception {
-    //when
-    final CodeMetric metrics = sonarQubeClient.getProjectMetrics("cd-metrics-ui");
-    //then
-    assertThat(metrics, is(notNullValue()));
-  }
+    @Test
+    @Ignore
+    public void should_GetProjectMetrics() throws Exception {
+        //when
+        final CodeMetric metrics = sonarQubeClient.getProjectMetrics("cd-metrics-ui");
+        //then
+        assertThat(metrics, is(notNullValue()));
+    }
 
 
-  @Test
-  @Ignore
-  public void should_get_projects() throws Exception {
-    //when
-    final List<SonarQubeProjectResponse> projects = sonarQubeClient.getSonarProjects();
-    //then
-    assertThat(projects.size(), is(greaterThan(1)));
-  }
+    @Test
+    @Ignore
+    public void should_get_projects() throws Exception {
+        //when
+        final List<SonarQubeProjectResponse> projects = sonarQubeClient.getSonarProjects();
+        //then
+        assertThat(projects.size(), is(greaterThan(1)));
+    }
 
-  @Ignore
-  @Test
-  @Ignore
-  public void should_get_project_test_report() {
-    final TestReportDto report = sonarQubeClient.getTestReport("cucumber-sample-for-test-pyramid");
-    assertNotNull(report);
-  }
+    @Ignore
+    @Test
+    public void should_get_project_test_report() {
+        final TestReportDto report = sonarQubeClient.getTestReport("cucumber-sample-for-test-pyramid");
+        assertNotNull(report);
+    }
 
-  @Ignore
-  @Test
-  @Ignore
-  public void should_get_project_test_report_by_build() {
-    final TestReportDto report = sonarQubeClient.getTestReportByBuild("junit-sample-for-test-pyramid", "11");
-    assertNotNull(report);
-  }
+    @Ignore
+    @Test
+    public void should_get_project_test_report_by_build() {
+        final TestReportDto report = sonarQubeClient.getTestReportByBuild("junit-sample-for-test-pyramid", "11");
+        assertNotNull(report);
+    }
 
-  @Ignore
-  @Test
-  @org.junit.Ignore
-  public void should_get_team_test_reports() {
+    @Ignore
+    @Test
+    public void should_get_team_test_reports() {
 
-    final List<TestReportDto> reportDtos = sonarQubeClient.getTestReports(Arrays.asList("cucumber-sample-for-test-pyramid", "123456"));
-    assertNotNull(reportDtos);
-    assertFalse(reportDtos.stream().allMatch(testReportDto -> testReportDto == null));
-  }
+        final List<TestReportDto> reportDtos = sonarQubeClient.getTestReports(Arrays.asList("cucumber-sample-for-test-pyramid", "123456"));
+        assertNotNull(reportDtos);
+        assertFalse(reportDtos.stream().allMatch(testReportDto -> testReportDto == null));
+    }
 
-  @Ignore
-  @Test
-  public void should_get_projects_test_reports() {
-    final List<TestReportDto> reportDtos = sonarQubeClient.getTestReports(Lists.newArrayList("identity-server","cd-cdmtrics"));
-    assertEquals(2,reportDtos.size());
-  }
+    @Ignore
+    @Test
+    public void should_get_projects_test_reports() {
+        final List<TestReportDto> reportDtos = sonarQubeClient.getTestReports(Lists.newArrayList("identity-server", "cd-cdmtrics"));
+        assertEquals(2, reportDtos.size());
+    }
 
 }
