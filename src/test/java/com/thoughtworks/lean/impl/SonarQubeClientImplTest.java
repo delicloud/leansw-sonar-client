@@ -38,7 +38,7 @@ import static org.springframework.util.ReflectionUtils.findField;
 @RunWith(MockitoJUnitRunner.class)
 public class SonarQubeClientImplTest {
 
-  public static final String SONAR_HOST = "http://120.27.104.224:9000";
+  public static final String SONAR_HOST = "http://sonar.dev.twleansw.com:9000";
   private SonarQubeClient sonarQubeClient;
 
   @Before
@@ -68,6 +68,7 @@ public class SonarQubeClientImplTest {
   }
 
   @Test
+  @Ignore
   public void should_GetProjectMetrics() throws Exception {
     //when
     final CodeMetric metrics = sonarQubeClient.getProjectMetrics("cd-metrics-ui");
@@ -77,6 +78,7 @@ public class SonarQubeClientImplTest {
 
 
   @Test
+  @Ignore
   public void should_get_projects() throws Exception {
     //when
     final List<SonarQubeProjectResponse> projects = sonarQubeClient.getSonarProjects();
@@ -86,6 +88,7 @@ public class SonarQubeClientImplTest {
 
   @Ignore
   @Test
+  @Ignore
   public void should_get_project_test_report() {
     final TestReportDto report = sonarQubeClient.getTestReport("cucumber-sample-for-test-pyramid");
     assertNotNull(report);
@@ -93,6 +96,7 @@ public class SonarQubeClientImplTest {
 
   @Ignore
   @Test
+  @Ignore
   public void should_get_project_test_report_by_build() {
     final TestReportDto report = sonarQubeClient.getTestReportByBuild("junit-sample-for-test-pyramid", "11");
     assertNotNull(report);
@@ -100,6 +104,7 @@ public class SonarQubeClientImplTest {
 
   @Ignore
   @Test
+  @org.junit.Ignore
   public void should_get_team_test_reports() {
 
     final List<TestReportDto> reportDtos = sonarQubeClient.getTestReports(Arrays.asList("cucumber-sample-for-test-pyramid", "123456"));
