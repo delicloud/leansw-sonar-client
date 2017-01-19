@@ -37,7 +37,7 @@ import static org.springframework.util.ReflectionUtils.findField;
 @RunWith(MockitoJUnitRunner.class)
 public class SonarQubeClientImplTest {
 
-    public static final String SONAR_HOST = "http://sonar.dev.twleansw.com:9000";
+    public static final String SONAR_HOST = "http://sonar-server:9000";
     private SonarQubeClient sonarQubeClient;
 
     @Before
@@ -85,10 +85,9 @@ public class SonarQubeClientImplTest {
         assertThat(projects.size(), is(greaterThan(1)));
     }
 
-    @Ignore
     @Test
     public void should_get_project_test_report() {
-        final TestReportDto report = sonarQubeClient.getTestReport("cucumber-sample-for-test-pyramid");
+        final TestReportDto report = sonarQubeClient.getTestReport("code-metrics");
         assertNotNull(report);
     }
 
